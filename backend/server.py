@@ -156,10 +156,12 @@ async def root():
 
 
 # Auth endpoints
-@api_router.get("/auth/me", response_model=User)
+@api_router.get("/auth/me")
 async def get_me(request: Request):
     user = await require_auth(request)
-    return user
+    # Convert to dict and ensure 'id' field is used instead of '_id'
+    user_dict = user.model_dump()
+    return user_dict
 
 
 @api_router.post("/auth/session")
