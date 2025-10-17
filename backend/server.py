@@ -155,7 +155,7 @@ async def root():
 
 
 # Auth endpoints
-@api_router.get("/auth/me")
+@api_router.get("/auth/me", response_model=User)
 async def get_me(request: Request):
     user = await require_auth(request)
     return user
